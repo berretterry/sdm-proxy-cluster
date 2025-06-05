@@ -46,7 +46,7 @@ resource "aws_lb_listener" "this_sdm" {
   }
 }
 
-resource "aws_lb_listener" "this_sdm" {
+resource "aws_lb_listener" "this_worker" {
   load_balancer_arn = aws_lb.this.arn
   port              = 8443
   protocol          = "TCP"
