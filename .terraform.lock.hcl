@@ -23,3 +23,17 @@ provider "registry.terraform.io/hashicorp/aws" {
     "zh:efae8e339c4b13f546e0f96c42eb95bf8347de22e941594849b12688574bf380",
   ]
 }
+
+provider "registry.terraform.io/strongdm/sdm" {
+  version     = "14.20.0"
+  constraints = ">= 3.3.0"
+  hashes = [
+    "h1:/evAO4Z+I2t3uD2KKW5493vkSica5ptBkUXoLoRWRr8=",
+    "zh:20ac2db39628c22f3be460e56a95d0f8d4b0af73d3454984a2e5cf780f8b574f",
+    "zh:2a6c87042c406137bc14f2ddcf09f596711fcc2d5d572af23f432bd9847c37d2",
+    "zh:2f24caac9b9433747008ff301cbbaadda38825667647b59c7d2ce189d45cf0c1",
+    "zh:90ec787a545c5332b83152619e52ffd5cb1a67ddf4d7d9dc9f4e2b6765749de8",
+    "zh:bf1d20e208ca92e770e8748428e0b7a6fa37c480105867dd39d5690bb65fb8da",
+    "zh:e165498f7591d2a3aca93c236c52ffc816fd5b4555d11e707dd50ad6f63de7e3",
+  ]
+}

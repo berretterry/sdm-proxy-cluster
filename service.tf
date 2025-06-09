@@ -31,11 +31,11 @@ resource "aws_ecs_service" "bridge_service" {
 
   propagate_tags = "SERVICE"
 
-  depends_on = [aws_lb_listener.this]
+  depends_on = [aws_lb_listener.this_sdm]
 
   lifecycle {
     postcondition {
-      condition     = self.task_definition == "${aws_ecs_task_definition.this.id}:${aws_ecs_task_definition.this.revision}"
+      condition     = self.task_definition == "${aws_ecs_task_definition.this_bridge.id}:${aws_ecs_task_definition.this_bridge.revision}"
       error_message = "The service did not reach the steady state at the requested version"
     }
   }
@@ -74,11 +74,11 @@ resource "aws_ecs_service" "worker_service" {
 
   propagate_tags = "SERVICE"
 
-  depends_on = [aws_lb_listener.this]
+  depends_on = [aws_lb_listener.this_worker]
 
   lifecycle {
     postcondition {
-      condition     = self.task_definition == "${aws_ecs_task_definition.this_worker.id}:${aws_ecs_task_definition.this.revision}"
+      condition     = self.task_definition == "${aws_ecs_task_definition.this_worker.id}:${aws_ecs_task_definition.this_worker.revision}"
       error_message = "The service did not reach the steady state at the requested version"
     }
   }

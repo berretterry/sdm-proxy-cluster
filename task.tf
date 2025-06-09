@@ -4,9 +4,9 @@ resource "aws_ecs_task_definition" "this_bridge" {
   network_mode             = "awsvpc"
   cpu                      = 2048
   memory                   = 4096
-  execution_role_arn       = aws_iam_role.ecsTaskExecutionRole.arn
-  task_role_arn            = aws_iam_role.ecsTaskRole.arn
-  container_definitions    = jsondecode([
+  execution_role_arn       = aws_iam_role.this_task_execution.arn
+  task_role_arn            = aws_iam_role.this_task.arn
+  container_definitions    = jsonencode([
       {
         name                          = "strongdm-proxy-cluster"
         image                         = "public.ecr.aws/strongdm/relay"
@@ -27,7 +27,7 @@ resource "aws_ecs_task_definition" "this_bridge" {
         },
         {
           name  = "SDM_PROXY_CLUSTER_ACCESS_KEY"
-          value = sdm_proxy_cluster_key.key.id
+          value = sdm_proxy_cluster_key.this.id
         },
       ]
       secrets = [
@@ -51,9 +51,9 @@ resource "aws_ecs_task_definition" "this_worker" {
   network_mode             = "awsvpc"
   cpu                      = 2048
   memory                   = 4096
-  execution_role_arn       = aws_iam_role.ecsTaskExecutionRole.arn
-  task_role_arn            = aws_iam_role.ecsTaskRole.arn
-  container_definitions    = jsondecode([
+  execution_role_arn       = aws_iam_role.this_task_execution.arn
+  task_role_arn            = aws_iam_role.this_task.arn
+  container_definitions    = jsonencode([
       {
         name                          = "strongdm-proxy-cluster"
         image                         = "public.ecr.aws/strongdm/relay"
@@ -74,7 +74,7 @@ resource "aws_ecs_task_definition" "this_worker" {
         },
         {
           name  = "SDM_PROXY_CLUSTER_ACCESS_KEY"
-          value = sdm_proxy_cluster_key.key.id
+          value = sdm_proxy_cluster_key.this.id
         },
       ]
       secrets = [

@@ -15,13 +15,18 @@ output "public_subnet_ids" {
 }
 
 output "id" {
-  value       = sdm_node.this.id
+  value       = sdm_node.cs-proxy-cluster.id
   description = "The ID of the proxy cluster"
 }
 
 output "worker_security_group_id" {
-  value       = aws_security_group.this.id
+  value       = aws_security_group.worker.id
   description = "The ID of the security group which proxy workers are assigned to"
+}
+
+output "bridge_security_group_id" {
+  value       = aws_security_group.bridge.id
+  description = "The ID of the security group which proxy bridges are assigned to"
 }
 
 output "worker_role_arn" {
