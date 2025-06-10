@@ -22,7 +22,7 @@ provider "aws" {
   region = var.aws_region
 }
 
-provider "sdm" {
-  api_access_key = "<SDM_API_ACCESS_KEY>"
-  api_secret_key = "<SDM_API_SECRET_KEY>"
-}
+# provider "sdm" {
+#   api_access_key = "SDM_API_ACCESS_KEY"
+#   api_secret_key = "SDM_API_SECRET_KEY"
+# }

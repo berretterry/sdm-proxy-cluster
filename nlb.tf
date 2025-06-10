@@ -4,7 +4,7 @@ resource "aws_lb" "this" {
   internal                         = false
   load_balancer_type               = "network"
   security_groups                  = [aws_security_group.nlb.id]
-  subnets                          = var.public_subnet_ids
+  subnets                          = module.vpc.public_subnets
   enable_cross_zone_load_balancing = true
 
 }
