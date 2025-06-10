@@ -1,5 +1,5 @@
 resource "aws_ecs_service" "bridge_service" {
-  name        = "${var.name}-service"
+  name        = "${var.name}-bridge-service"
   launch_type = "FARGATE"
 
   cluster         = aws_ecs_cluster.this.arn
@@ -25,7 +25,7 @@ resource "aws_ecs_service" "bridge_service" {
 
   load_balancer {
     target_group_arn = aws_lb_target_group.this.arn
-    container_name   = "proxy"
+    container_name   = "bridge"
     container_port   = 8443
   }
 
@@ -42,7 +42,7 @@ resource "aws_ecs_service" "bridge_service" {
 }
 
 resource "aws_ecs_service" "worker_service" {
-  name        = "${var.name}-service"
+  name        = "${var.name}-worker-service"
   launch_type = "FARGATE"
 
   cluster         = aws_ecs_cluster.this.arn
@@ -68,7 +68,7 @@ resource "aws_ecs_service" "worker_service" {
 
   load_balancer {
     target_group_arn = aws_lb_target_group.this.arn
-    container_name   = "proxy"
+    container_name   = "worker"
     container_port   = 8443
   }
 

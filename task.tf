@@ -8,7 +8,7 @@ resource "aws_ecs_task_definition" "this_bridge" {
   task_role_arn            = aws_iam_role.this_task.arn
   container_definitions    = jsonencode([
       {
-        name                          = "strongdm-proxy-cluster"
+        name                          = "bridge"
         image                         = "public.ecr.aws/strongdm/relay"
         essential                     = true
         networkMode                   = "awsvpc"
@@ -55,7 +55,7 @@ resource "aws_ecs_task_definition" "this_worker" {
   task_role_arn            = aws_iam_role.this_task.arn
   container_definitions    = jsonencode([
       {
-        name                          = "strongdm-proxy-cluster"
+        name                          = "worker"
         image                         = "public.ecr.aws/strongdm/relay"
         essential                     = true
         networkMode                   = "awsvpc"
