@@ -6,25 +6,25 @@ variable "aws_region" {
 variable "name" {
   description = "This name is applied to resources where applicable, e.g. titles and tags."
   type        = string
-  default     = "cs-proxy-cluster"
+  default     = "bt-proxy-cluster"
 }
 
-variable "vpc_id" {
-  description = "VPC ID is used to assign security groups in the correct network"
-  type        = string
-}
+# variable "vpc_id" {
+#   description = "VPC ID is used to assign security groups in the correct network"
+#   type        = string
+# }
 
-variable "private_subnet_ids" {
-  description = "strongDM proxy workers will be deployed into the subnets provided"
-  type        = list(string)
-  default     = null
-}
+# variable "private_subnet_ids" {
+#   description = "strongDM proxy workers will be deployed into the subnets provided"
+#   type        = list(string)
+#   default     = null
+# }
 
-variable "public_subnet_ids" {
-  description = "The NLB will be deployed into the subnets provided"
-  type        = list(string)
-  default     = null
-}
+# variable "public_subnet_ids" {
+#   description = "The NLB will be deployed into the subnets provided"
+#   type        = list(string)
+#   default     = null
+# }
 
 variable "ingress_cidr_blocks" {
   description = "A list of CIDR blocks from which to allow ingress traffic"

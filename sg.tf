@@ -2,7 +2,7 @@
 resource "aws_security_group" "bridge" {
   name_prefix = "sdm-proxy-"
 
-  vpc_id = var.vpc_id
+  vpc_id = module.vpc.vpc_id
 
   ingress {
     description     = "Allow TCP:8443 from NLB"
@@ -27,7 +27,7 @@ resource "aws_security_group" "bridge" {
 resource "aws_security_group" "nlb" {
   name_prefix = "sdm-proxy-"
 
-  vpc_id = var.vpc_id
+  vpc_id = module.vpc.vpc_id
 
   ingress {
     description = "Allow TCP:443 ingress"
@@ -52,7 +52,7 @@ resource "aws_security_group" "nlb" {
 resource "aws_security_group" "worker" {
   name_prefix = "sdm-proxy-"
 
-  vpc_id = var.vpc_id
+  vpc_id = module.vpc.vpc_id
 
   egress {
     from_port   = 0

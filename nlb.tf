@@ -15,7 +15,7 @@ resource "aws_lb_target_group" "this" {
   port        = 8443
   protocol    = "TCP"
   target_type = "ip"
-  vpc_id      = var.vpc_id
+  vpc_id      = module.vpc.vpc_id
 
   connection_termination = true
   deregistration_delay   = 0
