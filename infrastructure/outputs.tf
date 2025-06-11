@@ -14,11 +14,6 @@ output "public_subnet_ids" {
   value = module.vpc.public_subnets
 }
 
-output "id" {
-  value       = sdm_node.cs-proxy-cluster.id
-  description = "The ID of the proxy cluster"
-}
-
 output "worker_security_group_id" {
   value       = aws_security_group.worker.id
   description = "The ID of the security group which proxy workers are assigned to"

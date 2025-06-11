@@ -6,46 +6,17 @@ variable "aws_region" {
 variable "name" {
   description = "This name is applied to resources where applicable, e.g. titles and tags."
   type        = string
-  default     = "bt-proxy-cluster"
+  default     = "bt-pc-demo"
 }
 
-# variable "vpc_id" {
-#   description = "VPC ID is used to assign security groups in the correct network"
-#   type        = string
-# }
-
-# variable "private_subnet_ids" {
-#   description = "strongDM proxy workers will be deployed into the subnets provided"
-#   type        = list(string)
-#   default     = null
-# }
-
-# variable "public_subnet_ids" {
-#   description = "The NLB will be deployed into the subnets provided"
-#   type        = list(string)
-#   default     = null
-# }
+variable "tags" {
+  description = "global tags"
+  type        = string
+  default     = "bt-pc-demo"
+}
 
 variable "ingress_cidr_blocks" {
   description = "A list of CIDR blocks from which to allow ingress traffic"
   type        = list(string)
   default     = ["0.0.0.0/0"]
-}
-
-variable "worker_count" {
-  description = "Number of workers to run in the proxy cluster"
-  type        = number
-  default     = 1
-}
-
-variable "worker_cpu" {
-  type        = number
-  default     = 2048
-  description = "Amount of vCPU each worker should have."
-}
-
-variable "worker_memory" {
-  type        = number
-  default     = 4096
-  description = "Amount of memory each worker should have."
 }

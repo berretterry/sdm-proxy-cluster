@@ -1,4 +1,4 @@
 #ECS Cluster
 resource "aws_ecs_cluster" "this" {
-  name = "proxy-cluster-ecs"
+  name = "bt-proxy-cluster-ecs"
 }
