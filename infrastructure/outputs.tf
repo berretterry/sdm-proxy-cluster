@@ -14,6 +14,10 @@ output "public_subnet_ids" {
   value = module.vpc.public_subnets
 }
 
+output "ecs_cluster_name" {
+  value = aws_ecs_cluster.this.name
+}
+
 output "worker_security_group_id" {
   value       = aws_security_group.worker.id
   description = "The ID of the security group which proxy workers are assigned to"
@@ -29,3 +33,7 @@ output "worker_role_arn" {
   description = "IAM Role ARN of the workers"
 }
 
+output "nlb_address" {
+  value       = aws_lb.this.dns_name
+  description = "The ID of the security group which proxy bridges are assigned to"
+}

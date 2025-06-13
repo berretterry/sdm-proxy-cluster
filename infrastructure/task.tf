@@ -27,7 +27,7 @@ resource "aws_ecs_task_definition" "this_bridge" {
         },
         {
           name  = "SDM_PROXY_CLUSTER_ACCESS_KEY"
-          value = sdm_proxy_cluster_key.this.id
+          value = var.sdm_proxy_cluster_access_key
         },
       ]
       secrets = [
@@ -74,7 +74,7 @@ resource "aws_ecs_task_definition" "this_worker" {
         },
         {
           name  = "SDM_PROXY_CLUSTER_ACCESS_KEY"
-          value = sdm_proxy_cluster_key.this.id
+          value = var.sdm_proxy_cluster_access_key
         },
       ]
       secrets = [

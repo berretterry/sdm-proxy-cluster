@@ -15,22 +15,22 @@ variable "tags" {
   default     = "bt-pc-demo"
 }
 
-# variable "vpc_id" {
-#   description = "VPC ID is used to assign security groups in the correct network"
-#   type        = string
-# }
+variable "vpc_id" {
+  description = "VPC ID is used to assign security groups in the correct network"
+  type        = string
+}
 
-# variable "private_subnet_ids" {
-#   description = "strongDM proxy workers will be deployed into the subnets provided"
-#   type        = list(string)
-#   default     = null
-# }
+variable "private_subnet_ids" {
+  description = "strongDM proxy workers will be deployed into the subnets provided"
+  type        = list(string)
+  default     = null
+}
 
-# variable "public_subnet_ids" {
-#   description = "The NLB will be deployed into the subnets provided"
-#   type        = list(string)
-#   default     = null
-# }
+variable "public_subnet_ids" {
+  description = "The NLB will be deployed into the subnets provided"
+  type        = list(string)
+  default     = null
+}
 
 variable "ingress_cidr_blocks" {
   description = "A list of CIDR blocks from which to allow ingress traffic"
@@ -54,4 +54,14 @@ variable "worker_memory" {
   type        = number
   default     = 4096
   description = "Amount of memory each worker should have."
+}
+
+variable "sdm_proxy_cluster_secret_key" {
+  description = "This is the key from StrongDM for the Proxy Cluster install."
+  type        = string
+}
+
+variable "sdm_proxy_cluster_access_key" {
+  description = "This is the key from StrongDM for the Proxy Cluster install."
+  type        = string
 }
