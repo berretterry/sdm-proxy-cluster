@@ -10,7 +10,7 @@ resource "aws_ecs_task_definition" "this_bridge" {
   container_definitions    = jsonencode([
       {
         name                          = "bridge"
-        image                         = "public.ecr.aws/strongdm/relay"
+        image                         = "public.ecr.aws/strongdm/relay:latest"
         essential                     = true
         networkMode                   = "awsvpc"
 
@@ -75,7 +75,7 @@ resource "aws_ecs_task_definition" "this_worker" {
   container_definitions    = jsonencode([
       {
         name                          = "worker"
-        image                         = "public.ecr.aws/strongdm/relay"
+        image                         = "public.ecr.aws/strongdm/relay:latest"
         essential                     = true
         networkMode                   = "awsvpc"
         dependsOn                     = [{
