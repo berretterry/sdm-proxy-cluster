@@ -74,7 +74,10 @@ resource "aws_ecs_service" "worker_service" {
 
   propagate_tags = "SERVICE"
 
-  depends_on = [aws_lb_listener.this_worker]
+  depends_on = [
+    aws_lb_listener.this_worker,
+    aws_ecs_service.bridge_service
+    ]
 
   lifecycle {
     postcondition {

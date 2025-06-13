@@ -74,6 +74,10 @@ resource "aws_ecs_task_definition" "this_worker" {
         image                         = "public.ecr.aws/strongdm/relay"
         essential                     = true
         networkMode                   = "awsvpc"
+        dependsOn                     = [{
+          "containerName": "bridge",
+          "condition": "HEALTHY"
+          }]
 
         logConfiguration = {
           logDriver = "awslogs"
