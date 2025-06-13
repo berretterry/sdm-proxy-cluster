@@ -37,10 +37,17 @@ resource "aws_iam_policy" "this_task_execution" {
       },
 
       {
-        Action = "ssm:GetParameter*"
+        Action = [
+          "secretsmanager:GetSecretValue",
+          "ssm:GetParameter*",
+          "kms:Decrypt"
+        ]
         Effect = "Allow"
         Resource = [
-          aws_ssm_parameter.secret_key.arn,
+          "${aws_ssm_parameter.secret_key.arn}",
+          "arn:aws:ssm:us-west-2:637423342822:parameter/*",
+          "arn:aws:secretsmanager:us-west-2:637423342822:secret:*",
+          "arn:aws:kms:us-west-2:637423342822:key/*"
         ],
       },
     ]
