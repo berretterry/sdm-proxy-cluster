@@ -96,7 +96,7 @@ resource "aws_ecs_task_definition" "this_worker" {
         },
          {
           name  = "SDM_BRIDGE"
-          value = ""
+          value = "aws_lb.this.dns_name"
         },
         {
           name  = "SDM_PROXY_CLUSTER_ACCESS_KEY"
