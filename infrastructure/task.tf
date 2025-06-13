@@ -41,14 +41,18 @@ resource "aws_ecs_task_definition" "this_bridge" {
           name  = "SDM_PROXY_CLUSTER_ACCESS_KEY"
           value = var.sdm_proxy_cluster_access_key
         },
-      ]
-
-      secrets = [
         {
-          name      = "SDM_PROXY_CLUSTER_SECRET_KEY"
-          valueFrom = aws_ssm_parameter.secret_key.arn
+          name  = "SDM_PROXY_CLUSTER_SECRET_KEY"
+          value = var.sdm_proxy_cluster_secret_key
         },
       ]
+
+      # secrets = [
+      #   {
+      #     name      = "SDM_PROXY_CLUSTER_SECRET_KEY"
+      #     valueFrom = aws_ssm_parameter.secret_key.arn
+      #   },
+      # ]
 
         portMappings = [{
           protocol      = "tcp"
@@ -106,14 +110,18 @@ resource "aws_ecs_task_definition" "this_worker" {
           name  = "SDM_PROXY_CLUSTER_ACCESS_KEY"
           value = var.sdm_proxy_cluster_access_key
         },
-      ]
-
-      secrets = [
         {
-          name      = "SDM_PROXY_CLUSTER_SECRET_KEY"
-          valueFrom = aws_ssm_parameter.secret_key.arn
+          name  = "SDM_PROXY_CLUSTER_SECRET_KEY"
+          value = var.sdm_proxy_cluster_secret_key
         },
       ]
+
+      # secrets = [
+      #   {
+      #     name      = "SDM_PROXY_CLUSTER_SECRET_KEY"
+      #     valueFrom = aws_ssm_parameter.secret_key.arn
+      #   },
+      # ]
 
         portMappings = [{
           protocol      = "tcp"
