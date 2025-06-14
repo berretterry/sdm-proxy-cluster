@@ -18,7 +18,7 @@ resource "aws_ecs_service" "bridge_service" {
   }
 
   network_configuration {
-    subnets          = module.vpc.private_subnets
+    subnets          = module.vpc.public_subnets
     security_groups  = [aws_security_group.bridge.id]
     assign_public_ip = false
   }

@@ -31,7 +31,7 @@ resource "aws_ecs_task_definition" "this_bridge" {
         },
         {
           name  = "SDM_BIND_ADDRESS"
-          value = "8443"
+          value = ":8443"
         },
         {
           name  = "SDM_BRIDGE"
@@ -100,7 +100,7 @@ resource "aws_ecs_task_definition" "this_worker" {
         },
         {
           name  = "SDM_BIND_ADDRESS"
-          value = "8443"
+          value = ":8443"
         },
          {
           name  = "SDM_BRIDGE"
