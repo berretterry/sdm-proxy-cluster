@@ -16,7 +16,7 @@ module "infrastructure" {
 module "sdm" {
   source           = "./sdm"
   name             = var.name
-  nlb_address      = local.nlb_address
+  nlb_address      = module.infrastructure.nlb_address
   #vpc_id           = module.infrastructure.vpc_id
   #proxy_cluster_id = module.sdm.id
   #rdp_hostname     = module.rdp_server.hostname
