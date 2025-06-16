@@ -46,13 +46,13 @@ resource "aws_lb_listener" "this_sdm" {
   }
 }
 
-resource "aws_lb_listener" "this_worker" {
-  load_balancer_arn = aws_lb.this.arn
-  port              = 8443
-  protocol          = "TCP"
+# resource "aws_lb_listener" "this_worker" {
+#   load_balancer_arn = aws_lb.this.arn
+#   port              = 8443
+#   protocol          = "TCP"
 
-  default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.this.arn
-  }
-}
+#   default_action {
+#     type             = "forward"
+#     target_group_arn = aws_lb_target_group.this.arn
+#   }
+# }

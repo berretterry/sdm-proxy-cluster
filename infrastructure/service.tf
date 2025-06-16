@@ -68,10 +68,15 @@ resource "aws_ecs_service" "worker_service" {
 
   propagate_tags = "SERVICE"
 
+  #testing removing the worker listener since I am just going to the nlb on 443 now
   depends_on = [
-    aws_lb_listener.this_worker,
-    aws_ecs_service.bridge_service
-    ]
+  aws_ecs_service.bridge_service
+  ]
+
+  # depends_on = [
+  #   aws_lb_listener.this_worker,
+  #   aws_ecs_service.bridge_service
+  #   ]
 
   lifecycle {
     postcondition {
