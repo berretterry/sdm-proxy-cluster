@@ -1,7 +1,6 @@
 variable "name" {
   description = "This name is applied to resources where applicable, e.g. titles and tags."
   type        = string
-  default     = "bt-pc-demo"
 }
 
 variable "nlb_address" {
@@ -13,4 +12,12 @@ variable "tags" {
   description = "Tags to be applied to reasources created by this module"
   type        = map(string)
   default     = {}
+}
+variable "proxy_cluster_id" {
+  description = "sdm proxy cluster id."
+  type        = string
+}
+variable "ssh_hostname" {
+  description = "hostname for the ssh web server."
+  type        = string
 }

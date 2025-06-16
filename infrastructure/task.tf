@@ -20,7 +20,7 @@ resource "aws_ecs_task_definition" "this_bridge" {
             mode                  = "non-blocking"
             awslogs-group         = aws_cloudwatch_log_group.this.name
             awslogs-stream-prefix = "${var.name}-"
-            awslogs-region        = data.aws_region.current.name
+            awslogs-region        = data.aws_region.current.region
          }
        }
 
@@ -81,7 +81,7 @@ resource "aws_ecs_task_definition" "this_worker" {
             mode                  = "non-blocking"
             awslogs-group         = aws_cloudwatch_log_group.this.name
             awslogs-stream-prefix = "${var.name}-"
-            awslogs-region        = data.aws_region.current.name
+            awslogs-region        = data.aws_region.current.region
           }
         }
 

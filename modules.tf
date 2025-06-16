@@ -17,7 +17,8 @@ module "sdm" {
   nlb_address      = module.infrastructure.nlb_address
   tags             = var.tags
   #vpc_id           = module.infrastructure.vpc_id
-  #proxy_cluster_id = module.sdm.id
+  ssh_hostname     = module.ssh_server.ssh_hostname
+  proxy_cluster_id = module.sdm.proxy_cluster_id
   #rdp_hostname     = module.rdp_server.hostname
   #ssh_hostname     = module.ssh_server.hostname
   #eks_endpoint     = module.eks.endpoint
@@ -39,8 +40,8 @@ module "ssh_server" {
   ssh_pubkey       = data.sdm_ssh_ca_pubkey.this_key.public_key
   pc_worker_sg     = module.infrastructure.worker_security_group_id
   subnet_id        = module.infrastructure.private_subnet_ids[0]
-  vpc_id           = module.infrastructure.vpc.vpc_id
-  ssh_hostname     = module.ssh_server.hostname
+  vpc_id           = module.infrastructure.vpc_id
+  ssh_hostname     = module.ssh_server.ssh_hostname
 }
 
 # module "eks" {

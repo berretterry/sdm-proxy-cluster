@@ -1,4 +1,4 @@
-output "id" {
+output "proxy_cluster_id" {
   value       = sdm_node.proxy-cluster.id
   description = "The ID of the proxy cluster"
 }
