@@ -8,6 +8,7 @@ module "infrastructure" {
   ingress_cidr_blocks          = var.ingress_cidr_blocks
   sdm_proxy_cluster_access_key = module.sdm.sdm_proxy_cluster_access_key
   sdm_proxy_cluster_secret_key = module.sdm.sdm_proxy_cluster_secret_key
+  #nlb_private_ips              = module.infrastructure.nlb_private_ips
   #worker_role_arn             = module.infrastructure.worker_role_arn
   #worker_security_group_id    = module.infrastructure.worker_security_group_id
 }

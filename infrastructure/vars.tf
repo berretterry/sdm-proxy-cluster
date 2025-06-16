@@ -65,3 +65,7 @@ variable "sdm_proxy_cluster_access_key" {
   description = "This is the key from StrongDM for the Proxy Cluster install."
   type        = string
 }
+# variable "nlb_private_ips" {
+#   type        = string
+#   description = "internal ips of the nlb"
+# }

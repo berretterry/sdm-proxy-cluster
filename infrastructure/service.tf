@@ -66,12 +66,6 @@ resource "aws_ecs_service" "worker_service" {
     assign_public_ip = false
   }
 
-  load_balancer {
-    target_group_arn = aws_lb_target_group.this.arn
-    container_name   = "worker"
-    container_port   = 8443
-  }
-
   propagate_tags = "SERVICE"
 
   depends_on = [

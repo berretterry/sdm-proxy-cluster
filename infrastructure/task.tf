@@ -41,11 +41,7 @@ resource "aws_ecs_task_definition" "this_bridge" {
           name  = "SDM_PROXY_CLUSTER_ACCESS_KEY"
           value = var.sdm_proxy_cluster_access_key
         },
-        # {
-        #   name  = "SDM_PROXY_CLUSTER_SECRET_KEY"
-        #   value = var.sdm_proxy_cluster_secret_key
-        # },
-         ]
+        ]
 
       secrets = [
         {
@@ -98,19 +94,19 @@ resource "aws_ecs_task_definition" "this_worker" {
           name  = "SDM_BIND_ADDRESS"
           value = ":8443"
         },
-         {
+        #  {
+        #   name  = "SDM_BRIDGE"
+        #   value = "${aws_lb.this.dns_name}:8443"
+        # },
+        {
           name  = "SDM_BRIDGE"
-          value = "${aws_lb.this.dns_name}:8443"
+          value = aws_lb.this.dns_name
         },
         {
           name  = "SDM_PROXY_CLUSTER_ACCESS_KEY"
           value = var.sdm_proxy_cluster_access_key
         },
-        # {
-        #   name  = "SDM_PROXY_CLUSTER_SECRET_KEY"
-        #   value = var.sdm_proxy_cluster_secret_key
-        # },
-         ]
+        ]
 
       secrets = [
         {

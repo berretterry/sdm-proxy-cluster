@@ -1,7 +1,7 @@
 resource "sdm_node" "proxy-cluster" {
   proxy_cluster {
     name    = var.name
-    address = var.nlb_address
+    address = "${var.nlb_address}:8443"
     tags = {
       owner = var.name
     }
