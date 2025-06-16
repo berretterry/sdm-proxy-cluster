@@ -1,6 +1,6 @@
 
 resource "aws_iam_role" "this_task_execution" {
-  name_prefix = "bt-pc-"
+  name_prefix = "${var.name}-"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -18,7 +18,7 @@ resource "aws_iam_role" "this_task_execution" {
 }
 
 resource "aws_iam_policy" "this_task_execution" {
-  name_prefix = "bt-pc-"
+  name_prefix = "${var.name}-"
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -63,7 +63,7 @@ resource "aws_iam_role_policy_attachment" "this_task_execution" {
 # ==========
 
 resource "aws_iam_role" "this_task" {
-  name_prefix = "bt-pc-"
+  name_prefix = "${var.name}-"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -81,7 +81,7 @@ resource "aws_iam_role" "this_task" {
 }
 
 resource "aws_iam_policy" "this_task" {
-  name_prefix = "bt-pc-"
+  name_prefix = "${var.name}-"
 
   policy = jsonencode({
     Version = "2012-10-17"

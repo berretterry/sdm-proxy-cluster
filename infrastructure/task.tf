@@ -1,5 +1,5 @@
 resource "aws_ecs_task_definition" "this_bridge" {
-  family                   = "sdm-proxy-bridge"
+  family                   = "${var.name}-proxy-bridge"
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = var.worker_cpu
@@ -19,7 +19,7 @@ resource "aws_ecs_task_definition" "this_bridge" {
           options = {
             mode                  = "non-blocking"
             awslogs-group         = aws_cloudwatch_log_group.this.name
-            awslogs-stream-prefix = "proxy_cluster"
+            awslogs-stream-prefix = "${var.name}-"
             awslogs-region        = data.aws_region.current.name
          }
        }
@@ -60,7 +60,7 @@ resource "aws_ecs_task_definition" "this_bridge" {
 }
 
 resource "aws_ecs_task_definition" "this_worker" {
-  family                   = "sdm-proxy-worker"
+  family                   = "${var.name}-proxy-worker"
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = var.worker_cpu
@@ -80,7 +80,7 @@ resource "aws_ecs_task_definition" "this_worker" {
           options = {
             mode                  = "non-blocking"
             awslogs-group         = aws_cloudwatch_log_group.this.name
-            awslogs-stream-prefix = "bt-pc"
+            awslogs-stream-prefix = "${var.name}-"
             awslogs-region        = data.aws_region.current.name
           }
         }
@@ -94,10 +94,6 @@ resource "aws_ecs_task_definition" "this_worker" {
           name  = "SDM_BIND_ADDRESS"
           value = ":8443"
         },
-        #  {
-        #   name  = "SDM_BRIDGE"
-        #   value = "${aws_lb.this.dns_name}:8443"
-        # },
         {
           name  = "SDM_BRIDGE"
           value = "${aws_lb.this.dns_name}:443"

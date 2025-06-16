@@ -8,3 +8,9 @@ variable "nlb_address" {
   description = "This is the external dns of the nlb."
   type        = string
 }
+
+variable "tags" {
+  description = "Tags to be applied to reasources created by this module"
+  type        = map(string)
+  default     = {}
+}

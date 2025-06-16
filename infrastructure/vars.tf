@@ -1,18 +1,16 @@
 variable "aws_region" {
   type = string
-  default = "us-west-2"
 }
 
 variable "name" {
   description = "This name is applied to resources where applicable, e.g. titles and tags."
   type        = string
-  default     = "bt-pc-demo"
 }
 
 variable "tags" {
-  description = "global tags"
-  type        = string
-  default     = "bt-pc-demo"
+  description = "Tags to be applied to reasources created by this module"
+  type        = map(string)
+  default     = {}
 }
 
 variable "vpc_id" {
@@ -65,7 +63,3 @@ variable "sdm_proxy_cluster_access_key" {
   description = "This is the key from StrongDM for the Proxy Cluster install."
   type        = string
 }
-# variable "nlb_private_ips" {
-#   type        = string
-#   description = "internal ips of the nlb"
-# }

@@ -37,9 +37,3 @@ output "nlb_address" {
   value       = aws_lb.this.dns_name
   description = "The ID of the security group which proxy bridges are assigned to"
 }
-
-# output "nlb_private_ips" {
-#   value = {
-#     for k, v in data.aws_network_interface.nlb_interfaces : k => v.private_ip
-#   }
-# }

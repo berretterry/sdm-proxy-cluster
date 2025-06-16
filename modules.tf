@@ -1,22 +1,21 @@
 module "infrastructure" {
   source                       = "./infrastructure"
   name                         = var.name
+  aws_region                   = var.aws_region
   vpc_id                       = module.infrastructure.vpc_id
-  #ecs_cluster_name            = module.infrastructure.ecs_cluster_name
+  tags                         = var.tags
   private_subnet_ids           = module.infrastructure.public_subnet_ids
   public_subnet_ids            = module.infrastructure.public_subnet_ids
   ingress_cidr_blocks          = var.ingress_cidr_blocks
   sdm_proxy_cluster_access_key = module.sdm.sdm_proxy_cluster_access_key
   sdm_proxy_cluster_secret_key = module.sdm.sdm_proxy_cluster_secret_key
-  #nlb_private_ips              = module.infrastructure.nlb_private_ips
-  #worker_role_arn             = module.infrastructure.worker_role_arn
-  #worker_security_group_id    = module.infrastructure.worker_security_group_id
 }
 
 module "sdm" {
   source           = "./sdm"
   name             = var.name
   nlb_address      = module.infrastructure.nlb_address
+  tags             = var.tags
   #vpc_id           = module.infrastructure.vpc_id
   #proxy_cluster_id = module.sdm.id
   #rdp_hostname     = module.rdp_server.hostname
