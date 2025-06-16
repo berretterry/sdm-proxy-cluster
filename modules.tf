@@ -33,14 +33,15 @@ module "sdm" {
 #   rdp_hostname     = module.rdp_server.hostname
 # }
 
-# module "ssh_server" {
-#   source           = "./ssh_server"
-#   name             = var.name
-#   security_group   = module.infrastructure.worker_security_group_id
-#   subnet_id        = module.infrastructure.private_subnet_ids[0]
-#   vpc_id           = module.infrastructure.vpc.vpc_id
-#   ssh_hostname     = module.ssh_server.hostname
-# }
+module "ssh_server" {
+  source           = "./ssh_server"
+  name             = var.name
+  ssh_pubkey       = data.sdm_ssh_ca_pubkey.this_key.public_key
+  pc_worker_sg     = module.infrastructure.worker_security_group_id
+  subnet_id        = module.infrastructure.private_subnet_ids[0]
+  vpc_id           = module.infrastructure.vpc.vpc_id
+  ssh_hostname     = module.ssh_server.hostname
+}
 
 # module "eks" {
 #   source                   = "./eks"
