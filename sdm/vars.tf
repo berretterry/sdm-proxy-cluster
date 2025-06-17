@@ -21,3 +21,19 @@ variable "ssh_hostname" {
   description = "hostname for the ssh web server."
   type        = string
 }
+variable "db_hostname" {
+  description = "hostname for the database server."
+  type        = string
+}
+variable "password" {
+  description = "password for mysql database server."
+  type        = string
+}
+variable "username" {
+  description = "username for mysql database server."
+  type        = string
+}
+variable "database" {
+  description = "mysql database name."
+  type        = string
+}
