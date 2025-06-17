@@ -3,8 +3,8 @@ resource "sdm_resource" "mysql_admin" {
     name     = "${var.name}-mysql-admin"
     hostname = var.db_hostname
     database = var.database
-    username = var.username
-    password = var.password
+    username = var.db_username
+    password = var.db_password
     port     = 3306
 
     proxy_cluster_id = var.proxy_cluster_id
@@ -17,8 +17,8 @@ resource "sdm_resource" "mysql_ro" {
     name     = "${var.name}-mysql-replica-read-only"
     hostname = var.db_hostname
     database = var.database
-    username = var.username
-    password = var.password
+    username = var.db_username
+    password = var.db_password
     port     = 3306
 
     proxy_cluster_id = var.proxy_cluster_id

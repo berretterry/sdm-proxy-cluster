@@ -18,19 +18,23 @@ module "sdm" {
   tags             = var.tags
   ssh_hostname     = module.ssh_server.ssh_hostname
   proxy_cluster_id = module.sdm.proxy_cluster_id
-  password         = module.database.password
-  username         = module.database.username
+  db_password      = module.database.password
+  db_username      = module.database.username
   database         = module.database.database
   db_hostname      = module.database.db_hostname
+  rdp_hostname     = module.rdp_server.rdp_hostname
+  rdp_username     = module.rdp_server.rdp_username
+  rdp_password     = module.rdp_server.rdp_password
+  rdp_private_key  = module.rdp_server.rdp_private_key
 }
 
-# module "rdp_server" {
-#   source           = "./rdp_server"
-#   name             = var.name
-#   subnet_ids        = module.infrastructure.private_subnet_ids
-#   vpc_id           = module.infrastructure.vpc_id
-#   rdp_hostname     = module.rdp_server.hostname
-# }
+module "rdp_server" {
+  source           = "./rdp_server"
+  name             = var.name
+  subnet_id        = module.infrastructure.private_subnet_id[0]
+  pc_worker_sg     = module.infrastructure.worker_security_group_id
+  vpc_id           = module.infrastructure.vpc_id
+}
 
 module "ssh_server" {
   source           = "./ssh_server"
