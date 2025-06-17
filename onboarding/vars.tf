@@ -25,4 +25,8 @@ variable "grant_to_existing_users" {
   default     = []
   description = "A list of email addresses for existing accounts to be granted access to all resources."
 }
-
+variable "create_db" {
+  type        = bool
+  default     = true
+  description = "Set to true to create an EC2 instance with mysql"
+}

@@ -2,10 +2,10 @@ variable "name" {
   description = "This name is applied to resources where applicable, e.g. titles and tags."
   type        = string
 }
-variable "grant_to_existing_users" {
+variable "existing_users" {
   type        = list(string)
-  default     = []
   description = "A list of email addresses for existing accounts to be granted access to all resources."
+  default = []
 }
 
 variable "nlb_address" {

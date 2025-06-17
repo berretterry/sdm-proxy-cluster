@@ -1,10 +1,10 @@
 resource "sdm_resource" "windows_server" {
   rdp {
     name     = "${var.name}-rdp"
-    hostname = aws_instance.windows_server.private_ip
+    hostname = var.rdp_hostname
     port     = 3389
     username = "Administrator"
-    password = rsadecrypt(aws_instance.windows_server.password_data, tls_private_key.windows_server.private_key_pem)
+    password = rsadecrypt(var.rdp_password, var.rdp_private_key)
     tags     = merge({ Name = "${var.name}-rdp" }, var.tags)
 
     proxy_cluster_id = var.proxy_cluster_id
