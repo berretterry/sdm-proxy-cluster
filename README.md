@@ -21,7 +21,7 @@ Each of these resources will be onboarded into StrongDM. Users to attach roles t
 
 ### Items to populate into the cs_demo_config.tf file:
 
-- [] project name
-- [] AWS Region
-- [] Tags
-- [] Email address of Users to attach roles
+- [ ] project name
+- [ ] AWS Region
+- [ ] Tags
+- [ ] Email address of Users to attach roles
