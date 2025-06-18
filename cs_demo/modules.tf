@@ -16,17 +16,8 @@ module "sdm" {
   name                    = var.name
   nlb_address             = module.infrastructure.nlb_address
   tags                    = var.tags
-  existing_users          = data.sdm_account.existing_users
-  ssh_hostname            = module.ssh_server.ssh_hostname
+  grant_to_existing_users = var.grant_to_existing_users
   proxy_cluster_id        = module.sdm.proxy_cluster_id
-  db_password             = module.database.password
-  db_username             = module.database.username
-  database                = module.database.database
-  db_hostname             = module.database.db_hostname
-  rdp_hostname            = module.rdp_server.rdp_hostname
-  rdp_username            = module.rdp_server.rdp_username
-  rdp_password            = module.rdp_server.rdp_password
-  rdp_private_key         = module.rdp_server.rdp_private_key
 }
 
 module "rdp_server" {
@@ -36,6 +27,7 @@ module "rdp_server" {
   subnet_id        = module.infrastructure.private_subnet_ids[0]
   pc_worker_sg     = module.infrastructure.worker_security_group_id
   vpc_id           = module.infrastructure.vpc_id
+  proxy_cluster_id = module.sdm.proxy_cluster_id
 }
 
 module "ssh_server" {
@@ -46,7 +38,7 @@ module "ssh_server" {
   pc_worker_sg     = module.infrastructure.worker_security_group_id
   subnet_id        = module.infrastructure.private_subnet_ids[0]
   vpc_id           = module.infrastructure.vpc_id
-  ssh_hostname     = module.ssh_server.ssh_hostname
+  proxy_cluster_id = module.sdm.proxy_cluster_id
 }
 
 # module "eks" {
@@ -67,6 +59,7 @@ module "database" {
   pc_worker_sg      = module.infrastructure.worker_security_group_id
   subnet_ids        = module.infrastructure.private_subnet_ids
   vpc_id            = module.infrastructure.vpc_id
+  proxy_cluster_id  = module.sdm.proxy_cluster_id
 }
 
 

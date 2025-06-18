@@ -10,3 +10,8 @@ terraform {
     }
   }
 }
+
+provider "aws" {
+  profile = "berretterry"
+  region = var.aws_region
+}

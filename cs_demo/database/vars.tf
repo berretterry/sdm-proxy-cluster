@@ -20,3 +20,7 @@ variable "subnet_ids" {
   default     = null
   description = "Existing private subnet IDs to deploy resources in; if not set, defaults to public_subnet_ids"
 }
+variable "proxy_cluster_id" {
+  description = "sdm proxy cluster id."
+  type        = string
+}

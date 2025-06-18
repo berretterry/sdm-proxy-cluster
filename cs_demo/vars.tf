@@ -27,6 +27,21 @@ variable "grant_to_existing_users" {
 }
 variable "create_db" {
   type        = bool
-  default     = true
-  description = "Set to true to create an EC2 instance with mysql"
+  default     = false
+  description = "Set to true to create an RDS instance with mysql"
+}
+variable "create_rdp" {
+  type        = bool
+  default     = false
+  description = "Set to true to create an EC2 instance of a windows server"
+}
+variable "create_ssh_web" {
+  type        = bool
+  default     = false
+  description = "Set to true to create an EC2 instance to test ssh and http connections"
+}
+variable "create_eks" {
+  type        = bool
+  default     = false
+  description = "Set to true to create an EKS cluster"
 }

@@ -16,8 +16,4 @@ terraform {
       region = "us-west-2"
   }
 }
-provider "aws" {
-  profile = "berretterry"
-  region = module.onboarding.aws_region
-}
 

@@ -1,10 +1,10 @@
 resource "sdm_resource" "mysql_admin" {
   mysql {
     name     = "${var.name}-mysql-admin"
-    hostname = var.db_hostname
-    database = var.database
-    username = var.db_username
-    password = var.db_password
+    hostname = local.hostname
+    database = local.database
+    username = local.username
+    password = local.password
     port     = 3306
 
     proxy_cluster_id = var.proxy_cluster_id
@@ -15,10 +15,10 @@ resource "sdm_resource" "mysql_admin" {
 resource "sdm_resource" "mysql_ro" {
   mysql {
     name     = "${var.name}-mysql-replica-read-only"
-    hostname = var.db_hostname
-    database = var.database
-    username = var.db_username
-    password = var.db_password
+    hostname = local.hostname
+    database = local.database
+    username = local.username
+    password = local.password
     port     = 3306
 
     proxy_cluster_id = var.proxy_cluster_id

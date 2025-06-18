@@ -1,3 +1,7 @@
+variable "ssh_pubkey" {
+  description = "The public key of the StrongDM SSH CA"
+  type        = string
+}
 variable "name" {
   description = "The name of the project"
   type        = string
@@ -17,5 +21,14 @@ variable "pc_worker_sg" {
 }
 variable "subnet_id" {
   description = "Proxy Cluster Worker subnet id"
+  type        = string
+}
+# variable "ssh_hostname" {
+#   description = "SSH Web Server hostname"
+#   type        = string
+# }
+
+variable "proxy_cluster_id" {
+  description = "sdm proxy cluster id."
   type        = string
 }
