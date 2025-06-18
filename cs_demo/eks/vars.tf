@@ -15,11 +15,15 @@ variable "pc_worker_sg" {
   description = "proxy cluster security group id"
   type        = string
 }
-variable "subnet_id" {
+variable "subnet_ids" {
   description = "Proxy Cluster Worker subnet id"
   type        = string
 }
 variable "proxy_cluster_id" {
   description = "sdm proxy cluster id."
+  type        = string
+}
+variable "eks_role_arn" {
+  description = "IAM Role ARN of eks, which will receive permission to connect to EKS"
   type        = string
 }

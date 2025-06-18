@@ -22,7 +22,6 @@ output "worker_security_group_id" {
   value       = aws_security_group.worker.id
   description = "The ID of the security group which proxy workers are assigned to"
 }
-
 output "bridge_security_group_id" {
   value       = aws_security_group.bridge.id
   description = "The ID of the security group which proxy bridges are assigned to"
@@ -32,7 +31,10 @@ output "worker_role_arn" {
   value       = aws_iam_role.this_task.arn
   description = "IAM Role ARN of the workers"
 }
-
+output "eks_role_arn" {
+  value       = aws_iam_role.this_eks.arn
+  description = "IAM Role ARN of EKS"
+}
 output "nlb_address" {
   value       = aws_lb.this.dns_name
   description = "The ID of the security group which proxy bridges are assigned to"
