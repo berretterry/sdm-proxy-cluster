@@ -10,27 +10,24 @@ resource "sdm_account_attachment" "existing_users" {
   account_id = element(data.sdm_account.existing_users[count.index].ids, 0)
   role_id    = sdm_role.admins.id
 }
-
+resource "sdm_approval_workflow" "this" {
+    name = "${var.name} approval workflow"
+    approval_mode = "automatic"
+}
 resource "sdm_workflow" "this" {
     name         = "${var.name} automatic workflow"
     auto_grant   = true
     enabled      = true
-    approval_flow_id = data.sdm_approval_workflow.this.id
+    approval_flow_id = sdm_approval_workflow.this.id
     description  = "${var.name} automatic workflow"
     access_rules = jsonencode([
     {
-      "type" : "rdp",
       "tags" : {
         "workflow" : "${var.name}-workflow"
       }
     }
   ])
 }
-
-data "sdm_approval_workflow" "this" {
-    name = "${var.name} auto approval workflow"
-}
-
 resource "sdm_workflow_role" "this" {
     workflow_id = sdm_workflow.this.id
     role_id     = sdm_role.admins.id
