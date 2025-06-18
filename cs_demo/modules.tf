@@ -24,6 +24,7 @@ module "rdp_server" {
   count            = var.create_rdp ? 1 : 0
   source           = "./rdp_server"
   name             = var.name
+  tags             = var.tags
   subnet_id        = module.infrastructure.private_subnet_ids[0]
   pc_worker_sg     = module.infrastructure.worker_security_group_id
   vpc_id           = module.infrastructure.vpc_id
@@ -34,6 +35,7 @@ module "ssh_server" {
   count            = var.create_ssh_web ? 1 : 0
   source           = "./ssh_server"
   name             = var.name
+  tags             = var.tags
   ssh_pubkey       = data.sdm_ssh_ca_pubkey.this_key.public_key
   pc_worker_sg     = module.infrastructure.worker_security_group_id
   subnet_id        = module.infrastructure.private_subnet_ids[0]
@@ -56,6 +58,7 @@ module "database" {
   count             = var.create_db ? 1 : 0
   source            = "./database"
   name              = var.name
+  tags              = var.tags
   pc_worker_sg      = module.infrastructure.worker_security_group_id
   subnet_ids        = module.infrastructure.private_subnet_ids
   vpc_id            = module.infrastructure.vpc_id
