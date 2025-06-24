@@ -7,13 +7,25 @@ terraform {
     }
     aws = {
       source = "hashicorp/aws"
-      version = ">= 6.0.0-beta3"
+      version = ">= 4.33.0"
+    }
+    tls = {
+      source  = "hashicorp/tls"
+      version = "4.1.0"
+    }
+    kubernetes = {
+      source   = "hashicorp/kubernetes"
+      version  = "2.37.1"
     }
   }
-    backend "s3" {
-      bucket = "bterry-lab"
-      key = "bterry-lab/terraform.tfstate"
-      region = "us-west-2"
-  }
+  #   backend "s3" {
+  #     bucket = "bterry-lab"
+  #     key = "bterry-lab/terraform.tfstate"
+  #     region = module.cs_demo.aws_region
+  # }
+}
+provider "aws" {
+  profile = "berretterry"
+  region  = local.aws_region
 }
 

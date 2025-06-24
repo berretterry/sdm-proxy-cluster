@@ -1,6 +1,4 @@
-module "cs_demo" {
-  source = "./cs_demo"
-
+locals {
   # Name will be added to resource names
   name                    = "bt-pc-demo"
 
@@ -16,15 +14,15 @@ module "cs_demo" {
   #AWS Region you want resources deployed in
   aws_region              = "us-west-2"
 
-  #Comment this line out to create an rdp server
-  #create_rdp              = true
+  #Change this to true to create an rdp server
+  create_rdp              = false
 
-  #Comment this line out to create an ssh/web server
-  #create_ssh_web          = true
+  #Change this to true to create an ssh/web server
+  create_ssh_web          = false
 
-  #Comment this line out to create an eks cluster with discovery, impersonation, and identity alias
+  #CChange this to true to create an eks cluster with discovery, impersonation, and identity alias
   create_eks              = true
 
-  #Comment this line out to create a mysql rds database
-  #create_db               = true
+  #Change this to true to create a mysql rds database
+  create_db               = false
 }

@@ -1,9 +1,9 @@
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
-  version         = "20.8.4"
+  version         = ">= 20.8.4"
   cluster_name    = "${var.name}-eks"
   cluster_version = "1.32"
-  subnet_ids      = var.subnet_ids
+  subnet_ids      = var.private_subnet_ids
   vpc_id          = var.vpc_id
 
   tags = merge({ Name = "${var.name}-eks" }, var.tags)

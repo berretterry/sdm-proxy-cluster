@@ -4,7 +4,7 @@ module "infrastructure" {
   aws_region                   = var.aws_region
   vpc_id                       = module.infrastructure.vpc_id
   tags                         = var.tags
-  private_subnet_ids           = module.infrastructure.public_subnet_ids
+  private_subnet_ids           = module.infrastructure.private_subnet_ids
   public_subnet_ids            = module.infrastructure.public_subnet_ids
   ingress_cidr_blocks          = var.ingress_cidr_blocks
   sdm_proxy_cluster_access_key = module.sdm.sdm_proxy_cluster_access_key
@@ -47,10 +47,15 @@ module "eks" {
   count                    = var.create_eks ? 1 : 0
   source                   = "./eks"
   name                     = var.name
-  subnet_ids               = module.infrastructure.private_subnet_ids
+  private_subnet_ids       = module.infrastructure.private_subnet_ids
   vpc_id                   = module.infrastructure.vpc_id
   pc_worker_sg             = module.infrastructure.worker_security_group_id
   proxy_cluster_id         = module.sdm.proxy_cluster_id
+
+#   providers = {
+#     kubernetes = kubernetes
+#     aws        = aws
+#   }
 }
 
 module "database" {

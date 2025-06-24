@@ -15,9 +15,9 @@ variable "pc_worker_sg" {
   description = "proxy cluster security group id"
   type        = string
 }
-variable "subnet_ids" {
+variable "private_subnet_ids" {
   description = "Proxy Cluster Worker subnet id"
-  type        = string
+  type        = list(string)
 }
 variable "proxy_cluster_id" {
   description = "sdm proxy cluster id."

@@ -6,7 +6,7 @@ This is a multi-module project to install Proxy Clusters with a bridged worker i
 
 At this time the project is only for AWS.
 
-Resources can be onboarded based on preference or need by commenting or uncommenting out the resource in the cs_demo_config.tf file.
+Resources can be onboarded based on preference or need by filling out the [config.tf](./config.tf) file.
 
 ### Infrastructure
 
@@ -34,9 +34,10 @@ Resources can be onboarded based on preference or need by commenting or uncommen
 
 Each of these resources will be onboarded into StrongDM. Users to attach roles to, and project name should be filled into the cs_demo_config.tf file.
 
-### Items to populate into the cs_demo_config.tf file:
+### Items to populate into the config.tf file:
 
 - [ ] project name
 - [ ] AWS Region
 - [ ] Tags
 - [ ] Email address of Users to attach roles
+- [ ] Resources set to true or false

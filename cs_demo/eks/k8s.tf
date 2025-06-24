@@ -1,15 +1,17 @@
-provider "kubernetes" {
-  host                   = module.eks.cluster_endpoint
-  cluster_ca_certificate = base64decode(module.eks.cluster_ca_certificate)
-  token                  = data.aws_eks_cluster_auth.this.token
-}
-#Create Servie Account
+# provider "kubernetes" {
+#   host                   = module.eks.cluster_endpoint
+#   cluster_ca_certificate = base64decode(module.eks.cluster_ca_certificate)
+#   token                  = data.aws_eks_cluster_auth.this.token
+# }
+
+#Create Service Account
 resource "kubernetes_service_account" "impersonator" {
   metadata {
     name      = "impersonator-sa"
     namespace = "identity"
   }
 }
+
 #Impersonator cluster role and cluster role binding
 resource "kubernetes_cluster_role" "impersonate_user" {
   metadata {

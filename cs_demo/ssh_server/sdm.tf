@@ -1,3 +1,11 @@
+terraform {
+  required_providers {
+    sdm = {
+      source = "strongdm/sdm"
+      version = ">= 14.20.0"
+    }
+  }
+}
 resource "sdm_resource" "web_page" {
   http_no_auth {
     name             = "${var.name}-http"
