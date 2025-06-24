@@ -23,7 +23,3 @@ variable "proxy_cluster_id" {
   description = "sdm proxy cluster id."
   type        = string
 }
-variable "eks_role_arn" {
-  description = "IAM Role ARN of eks, which will receive permission to connect to EKS"
-  type        = string
-}

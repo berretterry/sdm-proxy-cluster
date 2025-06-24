@@ -49,7 +49,6 @@ module "eks" {
   name                     = var.name
   subnet_ids               = module.infrastructure.private_subnet_ids
   vpc_id                   = module.infrastructure.vpc_id
-  eks_role_arn             = module.infrastructure.worker_role_arn
   pc_worker_sg             = module.infrastructure.worker_security_group_id
   proxy_cluster_id         = module.sdm.proxy_cluster_id
 }

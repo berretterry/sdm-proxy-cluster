@@ -1,6 +1,6 @@
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
-  version         = "20.37.1"
+  version         = "20.8.4"
   cluster_name    = "${var.name}-eks"
   cluster_version = "1.32"
   subnet_ids      = var.subnet_ids
@@ -10,16 +10,34 @@ module "eks" {
 
   access_entries = {
     strongdm = {
-      kubernetes_groups = []
-      principal_arn     = var.eks_role_arn
+      principal_arn     = aws_iam_role.this_eks.arn
+
+      kubernetes_groups = ["system:masters"]
+
+      # policy_associations = {
+      #   admin = {
+      #     policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+      #     access_scope = {
+      #       type = "cluster"
+      #     }
+      #   }
+      # }
+
       policy_associations = {
         admin = {
-          policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSAdminPolicy"
+          policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
           access_scope = {
-            type = "cluster"
+            type       = "namespace"
+            namespaces = ["identity"]
           }
         }
       }
+      pod_identity_associations = [
+        {
+          namespace         = "identity"
+          service_account   = "impersonator-sa"
+        }
+      ]
     }
   }
 

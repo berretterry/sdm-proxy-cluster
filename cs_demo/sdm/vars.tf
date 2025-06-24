@@ -22,40 +22,5 @@ variable "proxy_cluster_id" {
   description = "sdm proxy cluster id."
   type        = string
 }
-# variable "ssh_hostname" {
-#   description = "hostname for the ssh web server."
-#   type        = string
-# }
-# variable "db_hostname" {
-#   description = "hostname for the database server."
-#   type        = string
-# }
-# variable "db_password" {
-#   description = "password for mysql database server."
-#   type        = string
-# }
-# variable "db_username" {
-#   description = "username for mysql database server."
-#   type        = string
-# }
-# variable "database" {
-#   description = "mysql database name."
-#   type        = string
-# }
-# variable "rdp_username" {
-#   description = "username for rdp server."
-#   type        = string
-# }
-# variable "rdp_password" {
-#   description = "password for rdp server."
-#   type        = string
-# }
-# variable "rdp_private_key" {
-#   description = "private key for rdp server."
-#   type        = string
-# }
-# variable "rdp_hostname" {
-#   description = "hostname/ip for rdp server."
-#   type        = string
-# }
+
 
