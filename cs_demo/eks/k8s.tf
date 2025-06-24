@@ -72,12 +72,12 @@ resource "kubernetes_cluster_role_binding" "discovery_binding" {
   role_ref {
     api_group = "rbac.authorization.k8s.io"
     kind      = "ClusterRole"
-    name      = "discovery"
+    name      = kubernetes_cluster_role.discovery.metadata[0].name
   }
   subject {
     api_group = "rbac.authorization.k8s.io"
     kind      = "User"
-    name      = "discovery"
+    name      = kubernetes_cluster_role.discovery.metadata[0].name
   }
 }
 
@@ -101,11 +101,11 @@ resource "kubernetes_cluster_role_binding" "healthcheck_binding" {
   role_ref {
     api_group = "rbac.authorization.k8s.io"
     kind      = "ClusterRole"
-    name      = "healthcheck"
+    name      = kubernetes_cluster_role.healthcheck.metadata[0].name
   }
   subject {
     api_group = "rbac.authorization.k8s.io"
     kind      = "User"
-    name      = "healthcheck"
+    name      = kubernetes_cluster_role.healthcheck.metadata[0].name
   }
 }
