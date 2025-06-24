@@ -12,8 +12,6 @@ module "eks" {
     strongdm = {
       principal_arn     = aws_iam_role.this_eks.arn
 
-      kubernetes_groups = ["system:masters"]
-
       # policy_associations = {
       #   admin = {
       #     policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
@@ -41,6 +39,21 @@ module "eks" {
     }
   }
 
+  eks_managed_node_groups = {
+    default = {
+      desired_size = 2
+      max_size     = 3
+      min_size     = 1
+      instance_types = ["t3.medium"]
+    }
+  }
+
+  cluster_addons = {
+    vpc-cni = {}
+    coredns = {}
+    kube-proxy = {}
+  }
+
   cluster_security_group_additional_rules = {
     strongdm = {
       description              = "Allow traffic from proxy workers to API endpoint"
@@ -52,3 +65,4 @@ module "eks" {
     }
   }
 }
+
