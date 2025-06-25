@@ -7,6 +7,7 @@ terraform {
   }
 }
 
+#Create a role to attach to users to use the workflow
 resource "sdm_role" "admins" {
   name         = "${var.name}-admin-role"
   # access_rules = jsonencode([
@@ -14,15 +15,20 @@ resource "sdm_role" "admins" {
   # ])
 }
 
+#Attach existing users to the role provided
 resource "sdm_account_attachment" "existing_users" {
   count      = length(var.grant_to_existing_users)
   account_id = element(data.sdm_account.existing_users[count.index].ids, 0)
   role_id    = sdm_role.admins.id
 }
+
+#create the approval workflow and determine if it is manual or automatic. This example is automatic manual example can be found in our terraform provider: https://registry.terraform.io/providers/strongdm/sdm/latest/docs/resources/approval_workflow
 resource "sdm_approval_workflow" "this" {
     name = "${var.name} approval workflow"
     approval_mode = "automatic"
 }
+
+#create the actual workflow
 resource "sdm_workflow" "this" {
     name         = "${var.name} automatic workflow"
     auto_grant   = true
@@ -37,6 +43,8 @@ resource "sdm_workflow" "this" {
     }
   ])
 }
+
+#WorkflowRole links a role to a workflow. The linked roles indicate which roles a user must be a part of to request access to a resource via the workflow.
 resource "sdm_workflow_role" "this" {
     workflow_id = sdm_workflow.this.id
     role_id     = sdm_role.admins.id

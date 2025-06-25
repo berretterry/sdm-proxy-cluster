@@ -48,7 +48,6 @@ variable "create_eks" {
 
 # variable "eks_cluster_endpoint" {
 #   type        = string
-#   default     = module.eks.eks_cluster_endpoint
 #   description = "eks cluster endpoint"
 # }
 

@@ -10,6 +10,7 @@ resource "kubernetes_service_account" "impersonator" {
     name      = "impersonator-sa"
     namespace = "identity"
   }
+  depends_on = [null_resource.wait_for_eks]
 }
 
 #Create namespace
@@ -17,6 +18,7 @@ resource "kubernetes_namespace" "identity" {
   metadata {
     name = "identity"
   }
+  depends_on = [null_resource.wait_for_eks]
 }
 
 #Bind cluster-admin permissions to the service account
@@ -34,6 +36,7 @@ resource "kubernetes_cluster_role_binding" "impersonator_sa_admin" {
     name      = "impersonator-sa"
     namespace = "identity"
   }
+  depends_on = [null_resource.wait_for_eks]
 }
 
 #Impersonator cluster role and cluster role binding
@@ -48,6 +51,7 @@ resource "kubernetes_cluster_role" "impersonate_user" {
     verbs      = ["impersonate"]
     resource_names = ["system:serviceaccount:identity:impersonator-sa"]
   }
+  depends_on = [null_resource.wait_for_eks]
 }
 
 resource "kubernetes_cluster_role_binding" "impersonate_binding" {
@@ -66,6 +70,7 @@ resource "kubernetes_cluster_role_binding" "impersonate_binding" {
     name      = "impersonator-sa"
     namespace = "identity"
   }
+  depends_on = [null_resource.wait_for_eks]
 }
 
 #Disovery user for SDM
@@ -89,6 +94,7 @@ resource "kubernetes_cluster_role" "discovery" {
     ]
     verbs = ["list", "get", "watch"]
   }
+  depends_on = [null_resource.wait_for_eks]
 }
 
 resource "kubernetes_cluster_role_binding" "discovery_binding" {
@@ -105,6 +111,7 @@ resource "kubernetes_cluster_role_binding" "discovery_binding" {
     kind      = "User"
     name      = "discovery"
   }
+  depends_on = [null_resource.wait_for_eks]
 }
 
 #Health check user for SDM
@@ -118,6 +125,7 @@ resource "kubernetes_cluster_role" "healthcheck" {
     resources  = ["pods"]
     verbs      = ["list", "get", "watch"]
   }
+  depends_on = [null_resource.wait_for_eks]
 }
 
 resource "kubernetes_cluster_role_binding" "healthcheck_binding" {
@@ -133,5 +141,27 @@ resource "kubernetes_cluster_role_binding" "healthcheck_binding" {
     api_group = "rbac.authorization.k8s.io"
     kind      = "User"
     name      = "healthcheck"
+  }
+  depends_on = [null_resource.wait_for_eks]
+}
+
+resource "null_resource" "wait_for_eks" {
+  provisioner "local-exec" {
+    command = <<EOT
+      for i in {1..60}; do
+        if nslookup ${var.eks_cluster_endpoint} > /dev/null 2>&1; then
+          echo "EKS API is available"
+          exit 0
+        fi
+        echo "Waiting for EKS cluster endpoint..."
+        sleep 10
+      done
+      echo "Timeout waiting for EKS API DNS"
+      exit 1
+    EOT
+  }
+
+  triggers = {
+    cluster = var.eks_cluster_name
   }
 }
