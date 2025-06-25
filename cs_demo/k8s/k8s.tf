@@ -1,10 +1,15 @@
+# provider "kubernetes" {
+#   host                   = var.eks_cluster_endpoint
+#   cluster_ca_certificate = base64decode(var.eks_cluster_ca)
+#   token                  = data.aws_eks_cluster_auth.this.token
+# }
+
 #Create Service Account
 resource "kubernetes_service_account" "impersonator" {
   metadata {
     name      = "impersonator-sa"
     namespace = "identity"
   }
-  depends_on = [module.eks]
 }
 
 #Create namespace
@@ -12,7 +17,6 @@ resource "kubernetes_namespace" "identity" {
   metadata {
     name = "identity"
   }
-  depends_on = [module.eks]
 }
 
 #Bind cluster-admin permissions to the service account
@@ -30,8 +34,6 @@ resource "kubernetes_cluster_role_binding" "impersonator_sa_admin" {
     name      = "impersonator-sa"
     namespace = "identity"
   }
-
-  depends_on = [module.eks]
 }
 
 #Impersonator cluster role and cluster role binding
@@ -46,7 +48,6 @@ resource "kubernetes_cluster_role" "impersonate_user" {
     verbs      = ["impersonate"]
     resource_names = ["system:serviceaccount:identity:impersonator-sa"]
   }
-  depends_on = [module.eks]
 }
 
 resource "kubernetes_cluster_role_binding" "impersonate_binding" {
@@ -65,7 +66,6 @@ resource "kubernetes_cluster_role_binding" "impersonate_binding" {
     name      = "impersonator-sa"
     namespace = "identity"
   }
-  depends_on = [module.eks]
 }
 
 #Disovery user for SDM
@@ -89,7 +89,6 @@ resource "kubernetes_cluster_role" "discovery" {
     ]
     verbs = ["list", "get", "watch"]
   }
-  depends_on = [module.eks]
 }
 
 resource "kubernetes_cluster_role_binding" "discovery_binding" {
@@ -106,7 +105,6 @@ resource "kubernetes_cluster_role_binding" "discovery_binding" {
     kind      = "User"
     name      = "discovery"
   }
-  depends_on = [module.eks]
 }
 
 #Health check user for SDM
@@ -120,7 +118,6 @@ resource "kubernetes_cluster_role" "healthcheck" {
     resources  = ["pods"]
     verbs      = ["list", "get", "watch"]
   }
-  depends_on = [module.eks]
 }
 
 resource "kubernetes_cluster_role_binding" "healthcheck_binding" {
@@ -137,5 +134,4 @@ resource "kubernetes_cluster_role_binding" "healthcheck_binding" {
     kind      = "User"
     name      = "healthcheck"
   }
-  depends_on = [module.eks]
 }

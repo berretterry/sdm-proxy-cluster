@@ -52,11 +52,16 @@ module "eks" {
   vpc_id                   = module.infrastructure.vpc_id
   pc_worker_sg             = module.infrastructure.worker_security_group_id
   proxy_cluster_id         = module.sdm.proxy_cluster_id
-
-#   providers = {
-#     kubernetes = kubernetes
-#     aws        = aws
-#   }
+}
+module "k8s" {
+  count                    = var.create_eks ? 1 : 0
+  source                   = "./k8s"
+  depends_on               = [ module.eks ]
+  name                     = var.name
+  aws_region               = var.aws_region
+  eks_cluster_name         = module.eks[0].eks_cluster_name
+  eks_cluster_endpoint     = module.eks[0].eks_cluster_endpoint
+  eks_cluster_ca           = module.eks[0].eks_cluster_certificate_authority_data
 }
 
 module "database" {
