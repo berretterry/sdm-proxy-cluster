@@ -1,11 +1,12 @@
-# provider "kubernetes" {
-#   host                   = var.eks_cluster_endpoint
-#   cluster_ca_certificate = base64decode(var.eks_cluster_ca)
-#   token                  = data.aws_eks_cluster_auth.this.token
-# }
+provider "kubernetes" {
+  host                   = module.eks[0].cluster_endpoint
+  cluster_ca_certificate = base64decode(module.eks[0].cluster_certificate_authority_data)
+  token                  = data.aws_eks_cluster_auth.this.token
+}
 
 #Create Service Account
 resource "kubernetes_service_account" "impersonator" {
+  count           = var.enabled ? 1 : 0
   metadata {
     name      = "impersonator-sa"
     namespace = "identity"
@@ -15,6 +16,7 @@ resource "kubernetes_service_account" "impersonator" {
 
 #Create namespace
 resource "kubernetes_namespace" "identity" {
+  count           = var.enabled ? 1 : 0
   metadata {
     name = "identity"
   }
@@ -23,13 +25,14 @@ resource "kubernetes_namespace" "identity" {
 
 #Bind cluster-admin permissions to the service account
 resource "kubernetes_cluster_role_binding" "impersonator_sa_admin" {
+  count           = var.enabled ? 1 : 0
   metadata {
     name = "impersonator-sa-admin"
   }
   role_ref {
     api_group = "rbac.authorization.k8s.io"
     kind      = "ClusterRole"
-    name      = kubernetes_cluster_role.impersonate_user.metadata[0].name
+    name      = kubernetes_cluster_role.impersonate_user[count.index].metadata[0].name
   }
   subject {
     kind      = "ServiceAccount"
@@ -41,6 +44,7 @@ resource "kubernetes_cluster_role_binding" "impersonator_sa_admin" {
 
 #Impersonator cluster role and cluster role binding
 resource "kubernetes_cluster_role" "impersonate_user" {
+  count           = var.enabled ? 1 : 0
   metadata {
     name = "impersonate-user"
   }
@@ -55,6 +59,7 @@ resource "kubernetes_cluster_role" "impersonate_user" {
 }
 
 resource "kubernetes_cluster_role_binding" "impersonate_binding" {
+  count           = var.enabled ? 1 : 0
   metadata {
     name = "impersonate-binding"
   }
@@ -62,7 +67,7 @@ resource "kubernetes_cluster_role_binding" "impersonate_binding" {
   role_ref {
     api_group = "rbac.authorization.k8s.io"
     kind      = "ClusterRole"
-    name      = kubernetes_cluster_role.impersonate_user.metadata[0].name
+    name      = kubernetes_cluster_role.impersonate_user[count.index].metadata[0].name
   }
 
   subject {
@@ -75,6 +80,7 @@ resource "kubernetes_cluster_role_binding" "impersonate_binding" {
 
 #Disovery user for SDM
 resource "kubernetes_cluster_role" "discovery" {
+  count           = var.enabled ? 1 : 0
   metadata {
     name = "discovery"
   }
@@ -98,13 +104,14 @@ resource "kubernetes_cluster_role" "discovery" {
 }
 
 resource "kubernetes_cluster_role_binding" "discovery_binding" {
+  count           = var.enabled ? 1 : 0
   metadata {
     name = "discovery-binding"
   }
   role_ref {
     api_group = "rbac.authorization.k8s.io"
     kind      = "ClusterRole"
-    name      = kubernetes_cluster_role.discovery.metadata[0].name
+    name      = kubernetes_cluster_role.discovery[count.index].metadata[0].name
   }
   subject {
     api_group = "rbac.authorization.k8s.io"
@@ -116,6 +123,7 @@ resource "kubernetes_cluster_role_binding" "discovery_binding" {
 
 #Health check user for SDM
 resource "kubernetes_cluster_role" "healthcheck" {
+  count           = var.enabled ? 1 : 0
   metadata {
     name = "healthcheck"
   }
@@ -129,13 +137,14 @@ resource "kubernetes_cluster_role" "healthcheck" {
 }
 
 resource "kubernetes_cluster_role_binding" "healthcheck_binding" {
+  count           = var.enabled ? 1 : 0
   metadata {
     name = "healthcheck-binding"
   }
   role_ref {
     api_group = "rbac.authorization.k8s.io"
     kind      = "ClusterRole"
-    name      = kubernetes_cluster_role.healthcheck.metadata[0].name
+    name      = kubernetes_cluster_role.healthcheck[count.index].metadata[0].name
   }
   subject {
     api_group = "rbac.authorization.k8s.io"
@@ -146,30 +155,32 @@ resource "kubernetes_cluster_role_binding" "healthcheck_binding" {
 }
 
 resource "null_resource" "wait_for_eks" {
+  count           = var.enabled ? 1 : 0
   depends_on = [module.eks]
 
   provisioner "local-exec" {
-    command = "aws eks wait cluster-active --name ${module.eks.cluster_name} --region ${var.aws_region}"
+    command = "aws eks wait cluster-active --name ${module.eks[0].cluster_name} --region ${var.aws_region}"
   }
 }
 
 # resource "null_resource" "wait_for_eks" {
 #   provisioner "local-exec" {
 
-#     # command = <<EOT
-#     #   for i in {1..60}; do
-#     #     if nslookup ${var.eks_cluster_endpoint} > /dev/null 2>&1; then
-#     #       echo "EKS API is available"
-#     #       exit 0
-#     #     fi
-#     #     echo "Waiting for EKS cluster endpoint..."
-#     #     sleep 10
-#     #   done
-#     #   echo "Timeout waiting for EKS API DNS"
-#     #   exit 1
-#     # EOT
+#     command = <<EOT
+#       for i in {1..60}; do
+#         if ${module.eks.cluster_endpoint} > /dev/null 2>&1; then
+#           echo "EKS API is available ${module.eks.cluster_endpoint}"
+#           exit 0
+#         fi
+#         echo "Waiting for EKS cluster endpoint... ${module.eks.cluster_endpoint}"
+#         sleep 10
+#       done
+#       echo "Timeout waiting for EKS API DNS"
+#       exit 1
+#     EOT
 #   }
 
-  # triggers = {
-  #   cluster = var.eks_cluster_name
-  # }
+#   triggers = {
+#     cluster = module.eks.cluster_name
+#   }
+# }

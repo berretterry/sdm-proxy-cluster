@@ -10,7 +10,7 @@ terraform {
 resource "sdm_resource" "eks" {
   amazon_eks_instance_profile {
     name         = "${var.name}-eks"
-    cluster_name = module.eks.cluster_name
+    cluster_name = module.eks[0].cluster_name
 
     proxy_cluster_id = var.proxy_cluster_id
 
@@ -19,10 +19,10 @@ resource "sdm_resource" "eks" {
     discovery_enabled = true
     discovery_username = "discovery"
 
-    certificate_authority = base64decode(module.eks.cluster_certificate_authority_data)
+    certificate_authority = base64decode(module.eks[0].cluster_certificate_authority_data)
 
-    endpoint = split("//", module.eks.cluster_endpoint)[1]
-    region   = split(".", module.eks.cluster_endpoint)[2]
+    endpoint = module.eks[0].cluster_endpoint
+    region   = var.aws_region
 
     # When specified strongDM will inherit permissions from this role
     tags = merge({

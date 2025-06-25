@@ -27,3 +27,8 @@ variable "aws_region" {
   description = "This is the region where your resources will be created"
   type = string
 }
+
+variable "enabled" {
+  description = "modularizing the eks cluster resources"
+  type = bool
+}
