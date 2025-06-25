@@ -146,22 +146,30 @@ resource "kubernetes_cluster_role_binding" "healthcheck_binding" {
 }
 
 resource "null_resource" "wait_for_eks" {
-  provisioner "local-exec" {
-    command = <<EOT
-      for i in {1..60}; do
-        if nslookup ${var.eks_cluster_endpoint} > /dev/null 2>&1; then
-          echo "EKS API is available"
-          exit 0
-        fi
-        echo "Waiting for EKS cluster endpoint..."
-        sleep 10
-      done
-      echo "Timeout waiting for EKS API DNS"
-      exit 1
-    EOT
-  }
+  depends_on = [module.eks]
 
-  triggers = {
-    cluster = var.eks_cluster_name
+  provisioner "local-exec" {
+    command = "aws eks wait cluster-active --name ${module.eks.cluster_name} --region ${var.aws_region}"
   }
 }
+
+# resource "null_resource" "wait_for_eks" {
+#   provisioner "local-exec" {
+
+#     # command = <<EOT
+#     #   for i in {1..60}; do
+#     #     if nslookup ${var.eks_cluster_endpoint} > /dev/null 2>&1; then
+#     #       echo "EKS API is available"
+#     #       exit 0
+#     #     fi
+#     #     echo "Waiting for EKS cluster endpoint..."
+#     #     sleep 10
+#     #   done
+#     #   echo "Timeout waiting for EKS API DNS"
+#     #   exit 1
+#     # EOT
+#   }
+
+  # triggers = {
+  #   cluster = var.eks_cluster_name
+  # }
