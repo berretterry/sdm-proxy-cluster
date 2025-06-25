@@ -1,9 +1,3 @@
-# provider "kubernetes" {
-#   host                   = module.eks.cluster_endpoint
-#   cluster_ca_certificate = base64decode(module.eks.cluster_ca_certificate)
-#   token                  = data.aws_eks_cluster_auth.this.token
-# }
-
 #Create Service Account
 resource "kubernetes_service_account" "impersonator" {
   metadata {
@@ -13,20 +7,28 @@ resource "kubernetes_service_account" "impersonator" {
   depends_on = [module.eks]
 }
 
+#Create namespace
+resource "kubernetes_namespace" "identity" {
+  metadata {
+    name = "identity"
+  }
+  depends_on = [module.eks]
+}
+
 #Bind cluster-admin permissions to the service account
 resource "kubernetes_cluster_role_binding" "impersonator_sa_admin" {
   metadata {
     name = "impersonator-sa-admin"
   }
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "ClusterRole"
+    name      = kubernetes_cluster_role.impersonate_user.metadata[0].name
+  }
   subject {
     kind      = "ServiceAccount"
     name      = "impersonator-sa"
     namespace = "identity"
-  }
-  role_ref {
-    kind      = "ClusterRole"
-    name      = "cluster-admin"
-    api_group = "rbac.authorization.k8s.io"
   }
 
   depends_on = [module.eks]
@@ -102,7 +104,7 @@ resource "kubernetes_cluster_role_binding" "discovery_binding" {
   subject {
     api_group = "rbac.authorization.k8s.io"
     kind      = "User"
-    name      = kubernetes_cluster_role.discovery.metadata[0].name
+    name      = "discovery"
   }
   depends_on = [module.eks]
 }
@@ -133,7 +135,7 @@ resource "kubernetes_cluster_role_binding" "healthcheck_binding" {
   subject {
     api_group = "rbac.authorization.k8s.io"
     kind      = "User"
-    name      = kubernetes_cluster_role.healthcheck.metadata[0].name
+    name      = "healthcheck"
   }
   depends_on = [module.eks]
 }

@@ -11,19 +11,9 @@ module "eks" {
   access_entries = {
     strongdm = {
       principal_arn     = aws_iam_role.this_eks.arn
-
-      # policy_associations = {
-      #   admin = {
-      #     policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
-      #     access_scope = {
-      #       type = "cluster"
-      #     }
-      #   }
-      # }
-
       policy_associations = {
         admin = {
-          policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+          policy_arn = "arn:aws:eks:${var.aws_region}::cluster-access-policy/AmazonEKSClusterAdminPolicy"
           access_scope = {
             type       = "namespace"
             namespaces = ["identity"]
@@ -37,21 +27,6 @@ module "eks" {
         }
       ]
     }
-  }
-
-  eks_managed_node_groups = {
-    default = {
-      desired_size = 2
-      max_size     = 3
-      min_size     = 1
-      instance_types = ["t3.medium"]
-    }
-  }
-
-  cluster_addons = {
-    vpc-cni = {}
-    coredns = {}
-    kube-proxy = {}
   }
 
   cluster_security_group_additional_rules = {

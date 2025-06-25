@@ -23,3 +23,7 @@ variable "proxy_cluster_id" {
   description = "sdm proxy cluster id."
   type        = string
 }
+variable "aws_region" {
+  description = "This is the region where your resources will be created"
+  type = string
+}
