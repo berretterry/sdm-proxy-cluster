@@ -13,6 +13,6 @@ output "eks_cluster_ca" {
   description = "eks cluster certificate"
 }
 output "eks_cluster_name" {
-  value = module.eks[0].cluster_name
+  value = module.eks[0].eks_cluster_name
   description = "eks cluster name"
 }
