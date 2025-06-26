@@ -31,6 +31,18 @@ module "eks" {
         }
       ]
     }
+    deployer = {
+      principal_arn = data.aws_iam_role.deployer.arn
+
+      policy_associations = {
+        full = {
+          policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+          access_scope = {
+            type = "cluster"
+          }
+        }
+      }
+    }
   }
 
   cluster_security_group_additional_rules = {

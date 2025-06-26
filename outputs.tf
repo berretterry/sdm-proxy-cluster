@@ -26,6 +26,6 @@ output "aws_region" {
 }
 
 output "current_arn" {
-  value = module.cs_demo.current_arn
+  value = module.cs_demo.deployer_arn
   description = "The ARN of the IAM role you are currently using to deploy this module"
 }
