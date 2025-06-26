@@ -5,6 +5,14 @@ resource "aws_iam_role" "this_eks" {
     Version = "2012-10-17"
     Statement = [
       {
+        Sid    = "AllowCurrentUser"
+        Effect = "Allow"
+        Principal = {
+          AWS = tolist(data.aws_iam_roles.this.arns)[0]
+        }
+        Action = "sts:AssumeRole"
+      },
+      {
         Action = "sts:AssumeRole"
         Effect = "Allow"
         Principal = {

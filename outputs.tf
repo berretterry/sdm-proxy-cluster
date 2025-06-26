@@ -24,3 +24,8 @@ output "aws_region" {
   value = local.aws_region
   description = "aws region for the project"
 }
+
+output "current_arn" {
+  value = module.cs_demo.current_arn
+  description = "The ARN of the IAM role you are currently using to deploy this module"
+}

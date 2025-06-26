@@ -17,4 +17,7 @@ output "eks_cluster_name" {
   value = module.eks.cluster_name
 }
 
-
+output "current_arn" {
+  value = tolist(data.aws_iam_roles.this.arns)[0]
+  description = "The ARN of the IAM role you are currently using to deploy this module"
+}
