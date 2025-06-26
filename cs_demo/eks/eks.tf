@@ -1,11 +1,14 @@
 module "eks" {
-  count           = var.enabled ? 1 : 0
+  # count           = var.enabled ? 1 : 0
   source          = "terraform-aws-modules/eks/aws"
   version         = ">= 20.8.4"
   cluster_name    = "${var.name}-eks"
   cluster_version = "1.32"
   subnet_ids      = var.private_subnet_ids
   vpc_id          = var.vpc_id
+
+  cluster_endpoint_public_access  = true
+  cluster_endpoint_private_access = true
 
   tags = merge({ Name = "${var.name}-eks" }, var.tags)
 

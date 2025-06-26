@@ -28,7 +28,7 @@ variable "aws_region" {
   type = string
 }
 
-variable "enabled" {
-  description = "modularizing the eks cluster resources"
-  type = bool
-}
+# variable "enabled" {
+#   description = "modularizing the eks cluster resources"
+#   type = bool
+# }

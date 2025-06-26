@@ -44,8 +44,8 @@ module "ssh_server" {
 }
 
 module "eks" {
-  # count                    = var.create_eks ? 1 : 0
-  enabled                  = var.create_eks
+  count                    = var.create_eks ? 1 : 0
+  # enabled                  = var.create_eks
   source                   = "./eks"
   name                     = var.name
   aws_region               = var.aws_region
@@ -53,9 +53,10 @@ module "eks" {
   vpc_id                   = module.infrastructure.vpc_id
   pc_worker_sg             = module.infrastructure.worker_security_group_id
   proxy_cluster_id         = module.sdm.proxy_cluster_id
-  #   providers = {
-  #   kubernetes = kubernetes
-  # }
+
+  providers = {
+    kubernetes = kubernetes.eks
+  }
 }
 
 module "database" {

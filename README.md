@@ -41,3 +41,17 @@ Each of these resources will be onboarded into StrongDM. Users to attach roles t
 - [ ] Tags
 - [ ] Email address of Users to attach roles
 - [ ] Resources set to true or false
+
+### Configuring the EKS cluster for Discovery and Privilege Escalation
+
+There is a yaml file that has all of the roles and role bindings needed to get things to work called sdm-rbac.yaml
+
+You can run through the steps on your own of connecting to the cluster, or you can run the shell script that is also provided setup-sdm-rbac.sh
+
+If the shell script doesn't run you may have to use a chmod command
+
+`chmod x setup-sdm-rbac.sh`
+
+Then you can run the script normally and it will update the cluster
+
+`./setup-sdm-rbac.sh`
