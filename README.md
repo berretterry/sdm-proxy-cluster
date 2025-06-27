@@ -9,12 +9,15 @@ This is a multi-module project to install Proxy Clusters with a bridged worker i
 At this time the project is only for AWS and you will need your AWS Access Keys:
 
 `export AWS_ACCESS_KEY_ID=<"ACCESS_KEY">`
+
 `export AWS_SECRET_ACCESS_KEY=<"SECRET_KEY">`
+
 `export AWS_SESSION_TOKEN=<"TOKEN">`
 
 You will also need your StrongDM API Keys to deploy into StrongDM
 
 `export SDM_API_ACCESS_KEY=<"ACCESS_KEY">`
+
 `export SDM_API_SECRET_KEY=<"SECRET_KEY">`
 
 ---
@@ -27,8 +30,10 @@ Please open the `config.tf` file and fill out the following items:
 - [ ] tags: These are the tags you want put on all of your resources in AWS and especially SDM
 - [ ] aws_region: This is required for deployment and will be the region that everything is deployed in.
 - [ ] existing_users: This is a list of existing user emails that you would like to have workflow access to these resources.
-- [ ] Resources: This select True or False for whether or not you want
+- [ ] Resources: Select True or False for whichever resources you would like to deploy.
+
       **Resources available:**
+
   - SSH and simple web server
   - RDP Windows server
   - RDS MySQL database
@@ -48,6 +53,8 @@ The following infrastructure is always created:
 - Secret's manager is used to store the SDM Secret Key for the Proxy Cluster. This can be refactored in the future to also store other secrets
 
 ### StrongDM
+
+The following will be deployed every time into StrongDM
 
 - An admin role with the project name prefix is added to each of the provided email addresses.
 - A dynamic access rule is also created with a "workflow" tag that will be associated with access workflows.
