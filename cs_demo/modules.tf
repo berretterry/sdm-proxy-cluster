@@ -48,6 +48,7 @@ module "eks" {
   count                    = var.create_eks ? 1 : 0
   source                   = "./eks"
   name                     = var.name
+  tags                     = var.tags
   aws_region               = var.aws_region
   private_subnet_ids       = module.infrastructure.private_subnet_ids
   vpc_id                   = module.infrastructure.vpc_id

@@ -12,25 +12,12 @@ metadata:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: impersonate-user
+  name: sdm-impersonator
 rules:
   - apiGroups: [""]
     resources: ["users", "groups", "serviceaccounts"]
     verbs: ["impersonate"]
-    resourceNames: ["system:serviceaccount:identity:impersonator-sa"]
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: impersonator-sa-admin
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: impersonate-user
-subjects:
-  - kind: ServiceAccount
-    name: impersonator-sa
-    namespace: identity
+    # resourceNames: ["system:serviceaccount:identity:impersonator-sa"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -39,7 +26,7 @@ metadata:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: impersonate-user
+  name: sdm-impersonator
 subjects:
   - kind: ServiceAccount
     name: impersonator-sa

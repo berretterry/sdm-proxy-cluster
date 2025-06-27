@@ -31,6 +31,18 @@ module "eks" {
         }
       ]
     }
+
+    strongdm_worker = {
+      principal_arn = var.worker_role_arn
+      policy_associations = {
+        admin = {
+          policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+          access_scope = {
+            type = "cluster"
+          }
+        }
+      }
+    }
     deployer = {
       principal_arn = data.aws_iam_role.deployer.arn
 
