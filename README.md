@@ -1,6 +1,6 @@
 # CS-Demo-AWS
 
----
+-
 
 ## Intro
 
@@ -42,7 +42,7 @@ Please open the `config.tf` file and fill out the following items:
 
 ### AWS
 
-The following infrastructure is always created:
+The following infrastructure is always created in AWS:
 
 - There is a single VPC with 2 public subnets and 2 private subnets.
 - 1 NLB is configured to direct traffic from incoming 443 to the Proxy Bridge. This also handles communication between the Proxy Worker and Bridge.
