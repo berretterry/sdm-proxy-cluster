@@ -9,12 +9,15 @@ This is a multi-module project to install Proxy Clusters with a bridged worker i
 At this time the project is only for AWS and you will need your AWS Access Keys:
 
 `export AWS_ACCESS_KEY_ID=<"ACCESS_KEY">`
+
 `export AWS_SECRET_ACCESS_KEY=<"SECRET_KEY">`
+
 `export AWS_SESSION_TOKEN=<"TOKEN">`
 
 You will also need your StrongDM API Keys to deploy into StrongDM
 
 `export SDM_API_ACCESS_KEY=<"ACCESS_KEY">`
+
 `export SDM_API_SECRET_KEY=<"SECRET_KEY">`
 
 ---
@@ -42,7 +45,7 @@ Please open the `config.tf` file and fill out the following items:
 
 ### AWS
 
-The following infrastructure is always created:
+The following infrastructure is always created in AWS:
 
 - There is a single VPC with 2 public subnets and 2 private subnets.
 - 1 NLB is configured to direct traffic from incoming 443 to the Proxy Bridge. This also handles communication between the Proxy Worker and Bridge.
