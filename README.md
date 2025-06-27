@@ -9,15 +9,12 @@ This is a multi-module project to install Proxy Clusters with a bridged worker i
 At this time the project is only for AWS and you will need your AWS Access Keys:
 
 `export AWS_ACCESS_KEY_ID=<"ACCESS_KEY">`
-
 `export AWS_SECRET_ACCESS_KEY=<"SECRET_KEY">`
-
 `export AWS_SESSION_TOKEN=<"TOKEN">`
 
 You will also need your StrongDM API Keys to deploy into StrongDM
 
 `export SDM_API_ACCESS_KEY=<"ACCESS_KEY">`
-
 `export SDM_API_SECRET_KEY=<"SECRET_KEY">`
 
 ---
@@ -32,7 +29,7 @@ Please open the `config.tf` file and fill out the following items:
 - [ ] existing_users: This is a list of existing user emails that you would like to have workflow access to these resources.
 - [ ] Resources: Select True or False for whichever resources you would like to deploy.
 
-      **Resources available:**
+  **Resources available:**
 
   - SSH and simple web server
   - RDP Windows server
