@@ -63,3 +63,8 @@ variable "sdm_proxy_cluster_access_key" {
   description = "This is the key from StrongDM for the Proxy Cluster install."
   type        = string
 }
+
+variable "eks_role_arn" {
+  description = "The ARN of the EKS IAM role that needs to assume the correct role for sdm access"
+  type        = string
+}

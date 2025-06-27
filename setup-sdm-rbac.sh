@@ -12,7 +12,7 @@ echo "✅ Region: $AWS_REGION"
 echo "✅ Current ARN: $ARN"
 
 echo "🔧 Updating kubeconfig for kubectl access..."
-aws eks update-kubeconfig --name "$CLUSTER_NAME" --region "$AWS_REGION" --role "$ARN"
+aws eks update-kubeconfig --name "$CLUSTER_NAME" --region "$AWS_REGION"
 
 echo "🚀 Applying RBAC resources to the cluster..."
 kubectl apply -f sdm-rbac.yaml

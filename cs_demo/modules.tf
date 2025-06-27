@@ -9,6 +9,7 @@ module "infrastructure" {
   ingress_cidr_blocks          = var.ingress_cidr_blocks
   sdm_proxy_cluster_access_key = module.sdm.sdm_proxy_cluster_access_key
   sdm_proxy_cluster_secret_key = module.sdm.sdm_proxy_cluster_secret_key
+  eks_role_arn                 = module.eks[0].eks_role_arn
 }
 
 module "sdm" {
@@ -45,7 +46,6 @@ module "ssh_server" {
 
 module "eks" {
   count                    = var.create_eks ? 1 : 0
-  # enabled                  = var.create_eks
   source                   = "./eks"
   name                     = var.name
   aws_region               = var.aws_region
@@ -53,10 +53,7 @@ module "eks" {
   vpc_id                   = module.infrastructure.vpc_id
   pc_worker_sg             = module.infrastructure.worker_security_group_id
   proxy_cluster_id         = module.sdm.proxy_cluster_id
-
-  providers = {
-    kubernetes = kubernetes.eks
-  }
+  worker_role_arn          = module.infrastructure.worker_role_arn
 }
 
 module "database" {

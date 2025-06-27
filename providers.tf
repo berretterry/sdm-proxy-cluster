@@ -25,7 +25,6 @@ terraform {
   # }
 }
 provider "aws" {
-  profile = "berretterry"
   region  = local.aws_region
 }
 

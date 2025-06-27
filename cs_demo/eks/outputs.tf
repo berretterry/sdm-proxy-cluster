@@ -21,3 +21,8 @@ output "deployer_arn" {
   value = data.aws_iam_role.deployer.arn
   description = "The ARN of the IAM role you are currently using to deploy this module"
 }
+
+output "eks_role_arn" {
+  value = aws_iam_role.this_eks.arn
+  description = "The ARN of the EKS IAM role that needs to assume the correct role for sdm access"
+}

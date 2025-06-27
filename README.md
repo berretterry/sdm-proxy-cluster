@@ -50,7 +50,7 @@ You can run through the steps on your own of connecting to the cluster, or you c
 
 If the shell script doesn't run you may have to use a chmod command
 
-`chmod x setup-sdm-rbac.sh`
+`chmod +x setup-sdm-rbac.sh`
 
 Then you can run the script normally and it will update the cluster
 

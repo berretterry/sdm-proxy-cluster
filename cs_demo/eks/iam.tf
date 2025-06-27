@@ -12,13 +12,13 @@ resource "aws_iam_role" "this_eks" {
         }
         Action = "sts:AssumeRole"
       },
-      # {
-      #   Effect = "Allow",
-      #   Principal = {
-      #     AWS = data.aws_caller_identity.current.arn
-      #   },
-      #   Action = "sts:AssumeRole"
-      # },
+      {
+        Effect = "Allow"
+        Principal = {
+          AWS = var.worker_role_arn
+        }
+        Action = "sts:AssumeRole"
+      },
       {
         Action = "sts:AssumeRole"
         Effect = "Allow"
