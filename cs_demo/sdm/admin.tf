@@ -17,7 +17,7 @@ resource "sdm_role" "admins" {
 
 #Attach existing users to the role provided
 resource "sdm_account_attachment" "existing_users" {
-  count      = length(var.grant_to_existing_users)
+  count      = length(var.existing_users)
   account_id = element(data.sdm_account.existing_users[count.index].ids, 0)
   role_id    = sdm_role.admins.id
 }

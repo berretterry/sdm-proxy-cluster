@@ -9,7 +9,7 @@ locals {
     }
 
   # List of email addresses of existing StrongDM users who will receive access to all resources
-  grant_to_existing_users = ["berret.terry+cssandbox@strongdm.com"]
+  existing_users = ["berret.terry+cssandbox@strongdm.com"]
 
   #AWS Region you want resources deployed in
   aws_region              = "us-west-2"

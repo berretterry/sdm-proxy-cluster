@@ -20,7 +20,7 @@ variable "ingress_cidr_blocks" {
   default     = ["0.0.0.0/0"]
 }
 
-variable "grant_to_existing_users" {
+variable "existing_users" {
   type        = list(string)
   default     = []
   description = "A list of email addresses for existing accounts to be granted access to all resources."

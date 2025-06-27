@@ -17,7 +17,7 @@ module "sdm" {
   name                    = var.name
   nlb_address             = module.infrastructure.nlb_address
   tags                    = var.tags
-  grant_to_existing_users = var.grant_to_existing_users
+  existing_users          = var.existing_users
   proxy_cluster_id        = module.sdm.proxy_cluster_id
 }
 
